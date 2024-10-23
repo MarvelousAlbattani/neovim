@@ -17,8 +17,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.q
 -- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = "`"
-vim.g.maplocalleader = "``"
+vim.g.mapleader = ","
+vim.g.maplocalleader = ",,"
 
 -- line numbers
 vim.wo.relativenumber = true
@@ -32,3 +32,7 @@ vim.o.shiftwidth = 4
 
 -- Setup lazy.nvim
 require("lazy").setup("plugins")
+
+vim.keymap.set('n', "<C-t>", function()
+    vim.cmd("tab terminal") 
+end, { desc = "Terminal open" })
