@@ -36,3 +36,10 @@ require("lazy").setup("plugins")
 vim.keymap.set('n', "<C-t>", function()
     vim.cmd("tab terminal") 
 end, { desc = "Terminal open" })
+
+-- Open neotree by default
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        require("neo-tree.command").execute({})
+    end
+})
