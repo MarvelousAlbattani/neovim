@@ -11,8 +11,7 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
-					"jdtls",
-                    "csharp_ls"
+                    "ts_ls"
 				},
 			})
 		end,
@@ -26,10 +25,7 @@ return {
 			lspconfig.lua_ls.setup({
                 capabilities = capabilities
 			})
-			lspconfig.jdtls.setup({
-                capabilities = capabilities
-			})
-            lspconfig.csharp_ls.setup({
+            lspconfig.ts_ls.setup({
 				capabilities = capabilities
             })
 
