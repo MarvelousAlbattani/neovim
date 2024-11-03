@@ -18,6 +18,9 @@ return {
             vim.keymap.set("n", "<C-m>", function()
                 harpoon.ui:toggle_quick_menu(harpoon:list())
             end)
+            vim.keymap.set("n", "<CR>", function()
+                -- nothing to disable menu open on enter
+            end)
         end,
     },
 }
