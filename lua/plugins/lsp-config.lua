@@ -13,6 +13,7 @@ return {
 					"lua_ls",
 					"ts_ls",
 					"angularls",
+                    "csharp_ls"
 				},
 			})
 		end,
@@ -32,6 +33,9 @@ return {
 			lspconfig.angularls.setup({
 				capabilities = capabilities,
 			})
+            lspconfig.csharp_ls.setup({
+				capabilities = capabilities,
+            })
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<C-space>", vim.lsp.buf.code_action, {})
