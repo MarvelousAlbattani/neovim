@@ -41,6 +41,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
+-- Reveal file in neotree when opened
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*",
+    callback = function()
+        vim.cmd('Neotree reveal')
+    end
+})
+
 local pipepath = vim.fn.stdpath("cache") .. "/server.pipe"
 if not vim.loop.fs_stat(pipepath) then
 	vim.fn.serverstart(pipepath)
