@@ -53,3 +53,6 @@ local pipepath = vim.fn.stdpath("cache") .. "/server.pipe"
 if not vim.loop.fs_stat(pipepath) then
 	vim.fn.serverstart(pipepath)
 end
+
+-- without this, pressing n will select everything
+vim.keymap.set('n', 'n', function() end, { desc = "avoid selecting everything" })
