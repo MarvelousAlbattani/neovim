@@ -10,14 +10,19 @@ return {
                 args = { "--interpreter=vscode" },
             }
 
+            dap.adapters.godot = {
+                type = "server",
+                host = "127.0.0.1",
+                port = 6006
+            }
+
             dap.configurations.cs = {
                 {
-                    type = "coreclr",
+                    type = "godot",
                     name = "launch - netcoredbg",
                     request = "launch",
-                    program = function()
-                        return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
-                    end,
+                    project = "${workspaceFolder}",
+                    launch_scene = true,
                 },
             }
 
