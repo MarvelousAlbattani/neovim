@@ -4,12 +4,6 @@ return {
         config = function()
             local dap = require("dap")
 
-            dap.adapters.coreclr = {
-                type = "executable",
-                command = "/usr/local/bin/netcoredbg",
-                args = { "--interpreter=vscode" },
-            }
-
             dap.adapters.godot = {
                 type = "server",
                 host = "127.0.0.1",
@@ -19,11 +13,18 @@ return {
             dap.configurations.cs = {
                 {
                     type = "godot",
-                    name = "launch - netcoredbg",
+                    name = "launch",
                     request = "launch",
                     project = "${workspaceFolder}",
-                    launch_scene = true,
+                    launch_scene = true
                 },
+                {
+                    type = "godot",
+                    name = "attach",
+                    request = "attach",
+                    project = "${workspaceFolder}",
+                    launch_scene = true
+                }
             }
 
             vim.keymap.set('n', '<leader>dc', function()
