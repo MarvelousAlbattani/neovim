@@ -27,27 +27,27 @@ return {
                 }
             }
 
-            vim.keymap.set('n', '<leader>dc', function()
+            vim.keymap.set('n', '<F9>', function()
                 dap.continue()
             end,
             { desc = "debugger continue" })
 
-            vim.keymap.set('n', '<leader>db', function()
+            vim.keymap.set('n', '<S-F8>', function()
                 dap.toggle_breakpoint()
             end,
             { desc = "debugger toggle breakpoint" })
 
-            vim.keymap.set('n', '<leader>do', function()
+            vim.keymap.set('n', '<F8>', function()
                 dap.step_over()
             end,
             { desc = "debugger step over" })
 
-            vim.keymap.set('n', '<leader>di', function()
+            vim.keymap.set('n', '<F6>', function()
                 dap.step_into()
             end,
             { desc = "debugger step into" })
 
-            vim.keymap.set('n', '<leader>de', function()
+            vim.keymap.set('n', '<F7>', function()
                 dap.step_out()
             end,
             { desc = "debugger step out" })
