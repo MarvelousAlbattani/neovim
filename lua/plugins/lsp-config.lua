@@ -13,7 +13,8 @@ return {
 					"lua_ls",
 					"ts_ls",
 					"angularls",
-                    "csharp_ls"
+                    "csharp_ls",
+                    "sqlls"
 				},
 			})
 		end,
@@ -34,6 +35,9 @@ return {
 				capabilities = capabilities,
 			})
             lspconfig.csharp_ls.setup({
+				capabilities = capabilities,
+            })
+            lspconfig.sqlls.setup({
 				capabilities = capabilities,
             })
 
