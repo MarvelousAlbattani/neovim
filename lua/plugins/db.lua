@@ -11,5 +11,14 @@ return {
             "DBUIAddConnection",
             "DBUIFindBuffer",
         },
+        config = function()
+            -- ad ogni query lanciata, il risultato non sara' in stato fold
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "dbout",
+                callback = function()
+                    vim.wo.foldenable = false
+                end
+            })
+        end
     },
 }
