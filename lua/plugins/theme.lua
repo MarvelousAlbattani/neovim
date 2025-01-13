@@ -1,14 +1,13 @@
 return {
-	"catppuccin/nvim",
-	name = "catppuccin",
-	priority = 1000,
-	config = function()
-	    vim.cmd.colorscheme("catppuccin")
+    "navarasu/onedark.nvim",
+    name = "onedark",
+    priority = 1000,
+    config = function()
+        require("onedark").setup({
+            style = "deep",
+            transparent = false,
+        })
 
-		local catppuccin = require("catppuccin")
-
-		catppuccin.setup({
-			transparent_background = false,
-		})
-	end,
+        vim.cmd.colorscheme("onedark")
+    end,
 }
