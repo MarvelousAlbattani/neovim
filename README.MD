@@ -1,2 +1,2 @@
 # Installation
-Put this repository inside ~/.confing/nvim
+Put this repository inside ~/.config/nvim
