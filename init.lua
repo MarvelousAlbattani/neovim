@@ -67,3 +67,52 @@ vim.keymap.set("n", "n", function() end, { desc = "avoid selecting everything" }
 vim.keymap.set("n", "<leader>c", function()
     vim.cmd("Telescope commands")
 end, { desc = "Show all commands" })
+
+-- Error handling, if length is grater than 80 do not show
+vim.diagnostic.config({
+    virtual_text = {
+        spacing = 2,
+        prefix = "●",
+        format = function(diagnostic)
+            local msg = diagnostic.message
+
+            if #msg > 80 then
+                return nil
+            else
+                return msg
+            end
+        end,
+    },
+    float = {
+        border = "rounded",
+        max_width = 80,
+        max_height = 20,
+        wrap = true,
+    },
+})
+
+vim.o.updatetime = 300
+
+-- Error handling if grater than 80 show error inside a popup
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local cursor = vim.api.nvim_win_get_cursor(0) -- {line, col}
+    local cursor_line = cursor[1] - 1 -- convert to 0-indexed line
+
+    -- Get diagnostics only for the current line
+    local diagnostics = vim.diagnostic.get(bufnr, { lnum = cursor_line })
+
+    for _, diag in ipairs(diagnostics) do
+      if #diag.message > 80 then
+        vim.diagnostic.open_float(nil, {
+          focusable = false,
+          border = "rounded",
+          max_width = 80,
+          wrap = true,
+        })
+        break -- show only once per line
+      end
+    end
+  end,
+})
