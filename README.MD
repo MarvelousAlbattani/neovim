@@ -36,3 +36,5 @@ Hack Nerd Font Mono:style=Bold Italic
 Hack Nerd Font Propo:style=Bold Italic
 Hack Nerd Font Propo:style=Regular
 ```
+
+5) Install lsps locally with mason plugin `:Mason` or insert the configuration inside `lsp/<lsp_name>.lua` and activate it inside `lua/core/lsp.lua`, if you want default installation, add it inside `lua/plugins/mason.lua`
