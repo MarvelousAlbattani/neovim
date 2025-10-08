@@ -12,7 +12,7 @@ return {
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "ts_ls" }, -- automatically install ts_ls
+				ensure_installed = { "ts_ls", "jdtls" }, -- automatically install ts_ls
 				automatic_installation = true, -- auto-install any LSP we configure
 			})
 
