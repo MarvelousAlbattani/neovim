@@ -14,8 +14,8 @@ return {
 				},
 				mapping = cmp.mapping.preset.insert({
 					-- Navigate between completion items
-					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-					["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
+					["<C-P>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+					["<C-N>"] = cmp.mapping.select_next_item({ behavior = "select" }),
 
 					-- `Enter` key to confirm completion
 					["<CR>"] = cmp.mapping.confirm({ select = false }),
