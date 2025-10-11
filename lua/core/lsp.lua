@@ -1,5 +1,7 @@
 vim.lsp.enable({
     'ts_ls',
+    'angularls',
+    'tailwindcss',
     'jdtls',
 })
 
