@@ -4,6 +4,12 @@ return {
         config = function()
             local dap = require("dap")
 
+            dap.adapters.coreclr = {
+                type = "executable",
+                command = "netcoredbg",
+                args = { "--interpreter=vscode" },
+            }
+
             dap.adapters.godot = {
                 type = "server",
                 host = "127.0.0.1",
@@ -13,17 +19,17 @@ return {
             dap.configurations.cs = {
                 {
                     type = "godot",
-                    name = "launch",
                     request = "launch",
-                    project = "${workspaceFolder}",
-                    launch_scene = true
+                    name = "Godot C# Launch",
+                    program = function()
+                        return vim.fn.input('Path to .dll', vim.fn.getcwd() .. '/bin/Debug/net8.0/', 'file')
+                    end,
                 },
                 {
-                    type = "godot",
-                    name = "attach",
+                    type = "coreclr",
                     request = "attach",
-                    project = "${workspaceFolder}",
-                    launch_scene = true
+                    name = "Attach to Godot C# Process",
+                    processId = require('dap.utils').pick_process
                 }
             }
 
