@@ -12,7 +12,7 @@ return {
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "ts_ls", "angularls", "tailwindcss", "jdtls" }, 
+				ensure_installed = { "ts_ls", "angularls", "tailwindcss", "jdtls", 'csharp_ls' }, 
 				automatic_installation = true, -- auto-install any LSP we configure
 			})
 

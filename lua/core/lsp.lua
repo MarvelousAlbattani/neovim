@@ -3,8 +3,8 @@ vim.lsp.enable({
     'angularls',
     'tailwindcss',
     'jdtls',
+    'csharp_ls',
 })
-
 
 vim.diagnostic.config({
     virtual_text = true,
