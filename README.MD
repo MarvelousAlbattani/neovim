@@ -39,3 +39,7 @@ Hack Nerd Font Propo:style=Regular
 
 5) Install lsps locally with mason plugin `:Mason` or insert the configuration inside `lsp/<lsp_name>.lua` and activate it inside `lua/core/lsp.lua`, if you want default installation, add it inside `lua/plugins/mason.lua`
 5.1) C# needs `dotnet-sdk` dependency: `sudo dnf install dotnet-sdk-10.0`
+
+
+# Run Godot debugger
+Use dap continue command `F9`.
