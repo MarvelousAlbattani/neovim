@@ -1,5 +1,8 @@
 local M = {}
 
+local wildfly_log_win = nil
+local wildfly_job_id = nil
+
 function M.setup()
     local buf = vim.api.nvim_create_buf(false, true)
     local width = 80
@@ -69,17 +72,39 @@ function M.start()
 
     vim.notify("Starting Wildfly...", vim.log.levels.INFO)
 
-    vim.system({ wildfly_script }, {
-        detach = true,
-    }, function(result)
-        vim.schedule(function()
-            if result.code == 0 then
-                vim.notify("WildFly avviato con successo!", vim.log.levels.INFO)
-            else
-                vim.notify("Errore nell'avvio di WildFly (codice: " .. tostring(result.code) .. ")", vim.log.levels.ERROR)
-            end
-        end)
-    end)
+    local wildfly_log_win_already_open = wildfly_log_win and vim.api.nvim_win_is_valid(wildfly_log_win)
+    local wildfly_is_running = wildfly_job_id and (vim.fn.jobwait({ wildfly_job_id }, 0)[1] == -1)
+
+    -- if wildfly is already running and log window exists
+    if wildfly_log_win_already_open and wildfly_is_running then
+        vim.api.nvim_set_current_win(wildfly_log_win)
+        vim.notify("Wildfly already running", vim.log.levels.WARN)
+
+        return
+    end
+        
+    -- if wildfly log windows is already open but wildfly is not running
+    if wildfly_log_win_already_open then
+        vim.api.nvim_set_current_win(wildfly_log_win)
+    else
+        -- else open a new log window
+        vim.cmd("botright split")
+        vim.cmd("resize 12")
+        wildfly_log_win = vim.api.nvim_get_current_win()
+    end
+
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_win_set_buf(wildfly_log_win, buf)
+
+    wildfly_job_id = vim.fn.termopen(wildfly_script, {
+        on_exit = function()
+            wildfly_job_id = nil
+        end
+    })
+
+    vim.api.nvim_win_set_cursor(wildfly_log_win, { vim.api.nvim_buf_line_count(buf), 0 })
+
+    vim.notify("Wildfly started successfully", vim.log.levels.INFO)
 end
 
 function M.stop()
@@ -110,50 +135,6 @@ function M.stop()
     end)
 end
 
-function M.logs()
-    local wildfly_path = vim.trim(getConfigurationFileContent() or "")
-    if wildfly_path == "" then
-        vim.notify("Empty configuration path. Reconfigure the path", vim.log.levels.WARN)
-
-        return
-    end
-
-    local log_file = wildfly_path .. "/standalone/log/server.log"
-    if vim.fn.filereadable(log_file) == 0 then
-        vim.notify("Unable to open log file, not found at: " .. log_file, vim.log.levels.ERROR)
-
-        return
-    end
-
-    local buf = vim.api.nvim_create_buf(false, true)
-    local width = vim.o.columns - 4
-    local height = 12
-    local col = 2
-    local row = vim.o.lines - height -4
-
-    local win = vim.api.nvim_open_win(buf, true, {
-        relative = "editor",
-        width = width,
-        height = height,
-        row = row,
-        col = col,
-        style = "minimal",
-        border = "rounded",
-    })
-
-
-    vim.fn.termopen("tail -f " .. vim.fn.shellescape(log_file))
-
-    vim.keymap.set({ "n", "t" } ,"q", function()
-        if vim.api.nvim_win_is_valid(win) then
-            vim.api.nvim_win_close(win, true)
-        end
-    end, { buffer = buf, silent = true })
-
-    vim.cmd("startinsert")
-
-    vim.notify("Logs watcher enabled (press 'q' in order to close)", vim.log.levels.INFO)
-end
 
 function setupUI(buf, win)
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, {

@@ -12,9 +12,6 @@ return {
             vim.api.nvim_create_user_command("WildflyStop", function()
                 require("wildfly").stop()
             end, {})
-            vim.api.nvim_create_user_command("WildflyLogs", function()
-                require("wildfly").logs()
-            end, {})
         end
     }
 }
