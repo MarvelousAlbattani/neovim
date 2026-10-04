@@ -32,6 +32,22 @@ return {
 				},
 			}
 
+            dap.adapters.java = {
+                type = "server",
+                host = "127.0.0.1",
+                port = 8787,
+            }
+
+            dap.configurations.java = {
+                {
+                    type = "java",
+                    request = "attach",
+                    name = "Debug Wildfly (Port 8787)",
+                    hostName = "127.0.0.1",
+                    port = 8787,
+                }
+            }
+
 			vim.keymap.set("n", "<F9>", function()
 				dap.continue()
 			end, { desc = "debugger continue" })
