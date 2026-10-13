@@ -13,8 +13,16 @@ return {
 			dap.adapters.godot = {
 				type = "server",
 				host = "127.0.0.1",
-				port = 6006,
+				port = 6007,
 			}
+
+            dap.adapters.java = function(callback, config)
+                callback({
+                    type = "server",
+                    host = config.hostName or "127.0.0.1",
+                    port = config.port or 5005,
+                })
+            end
 
 			dap.configurations.cs = {
 				{
@@ -22,49 +30,39 @@ return {
 					request = "attach",
 					name = "Attach to Godot C# Process",
 					processId = function()
-						return require("dap.utils").pick_process({
-							filter = function(proc)
-								local name = proc.name:lower()
-								return name:find("godot")
-							end,
-						})
-					end,
-				},
+                        local pid_str = vim.fn.input("Run ps -aux | grep godot and insert the pid: ")
+                        return tonumber(pid_str)
+                    end
+                }
 			}
-
-            dap.adapters.java = {
-                type = "server",
-                host = "127.0.0.1",
-                port = 8787,
-            }
 
             dap.configurations.java = {
                 {
                     type = "java",
                     request = "attach",
-                    name = "Debug Wildfly (Port 8787)",
+                    name = "Debug Wildfly (Port 5005)",
                     hostName = "127.0.0.1",
-                    port = 8787,
+                    port = 5005,
                 }
             }
 
-			vim.keymap.set("n", "<F9>", function()
+			vim.keymap.set("n", "<leader>dc", function()
 				dap.continue()
 			end, { desc = "debugger continue" })
 
-			vim.keymap.set("n", "<F5>", function()
+			vim.keymap.set("n", "<leader>db", function()
 				dap.toggle_breakpoint()
 			end, { desc = "debugger toggle breakpoint" })
 
-			vim.keymap.set("n", "<F8>", function()
+			vim.keymap.set("n", "<leader>dn", function()
 				dap.step_over()
 			end, { desc = "debugger step over" })
 
-			vim.keymap.set("n", "<F6>", function()
+			vim.keymap.set("n", "<leader>di", function()
 				dap.step_into()
 			end, { desc = "debugger step into" })
 
-			vim.keymap.set("n", "<F7>", function()
+			vim.keymap.set("n", "<leader>do", function()
 				dap.step_out()
 			end, { desc = "debugger step out" })
 		end,
