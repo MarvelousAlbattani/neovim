@@ -40,7 +40,7 @@ return {
                 {
                     type = "java",
                     request = "attach",
-                    name = "Debug Wildfly (Port 5005)",
+                    name = "Debug source (Port 5005)",
                     hostName = "127.0.0.1",
                     port = 5005,
                 }
