@@ -16,13 +16,7 @@ return {
 				port = 6007,
 			}
 
-            dap.adapters.java = function(callback, config)
-                callback({
-                    type = "server",
-                    host = config.hostName or "127.0.0.1",
-                    port = config.port or 5005,
-                })
-            end
+            -- dap adapter for java is handled by nvim-java
 
 			dap.configurations.cs = {
 				{
@@ -35,16 +29,6 @@ return {
                     end
                 }
 			}
-
-            dap.configurations.java = {
-                {
-                    type = "java",
-                    request = "attach",
-                    name = "Debug source (Port 5005)",
-                    hostName = "127.0.0.1",
-                    port = 5005,
-                }
-            }
 
 			vim.keymap.set("n", "<leader>dc", function()
 				dap.continue()

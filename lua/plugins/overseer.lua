@@ -19,22 +19,6 @@ return {
 					}
 				end,
 			})
-
-			overseer.register_template({
-				name = "Java Debug App",
-				builder = function(params)
-					return {
-						cmd = { "java" },
-						args = {
-							"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005",
-                            "-cp",
-                            "target/classes",
-							"com.marvewlous.Laucher",
-						},
-						components = { "default" },
-					}
-				end,
-			})
 		end,
 	},
 }
